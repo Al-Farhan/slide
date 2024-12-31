@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  clerkId      String        @unique
+  email        String        @unique
+  firstname    String?       @unique
+  lastname     String?       @unique
+  createdAt    DateTime      @default(now())
+  subscription Subscription?
+  automation   Automation[]
+  integrations  Integrations[]
+}
+
+model Subscription {
+  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String? @unique @db.Uuid()
+}
+
+model Integrations {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        INTEGRATIONS @default(INSTAGRAM)
+  createdAt   DateTime  @default(now())
+  User    User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String? @db.Uuid
+  token   String  @unique
+  expiresAt DateTime?
+  instagramId String? @unique
+}
+
+model Automation {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @default("Untitled")
+  createdAt DateTime @default(now())
+  active    Boolean  @default(false)
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?  @unique @db.Uuid()
+}
+
+enum INTEGRATIONS {
+  INSTAGRAM
+}
