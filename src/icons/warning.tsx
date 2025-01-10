@@ -14,8 +14,8 @@ export const Warning = () => {
                 fill="url(#paint0_linear_7880_3573)"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M12 14C12.5523 14 13 13.5523 13 13V8.00001C13 7.44772 12.5523 7.00001 12 7.00001C11.4477 7.00001 11 7.44772 11 8.00001V13C11 13.5523 11.4477 14 12 14Z"
                 fill="#F4F4F5"
             />
@@ -29,8 +29,8 @@ export const Warning = () => {
                     y2="22"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#3352CC" />
-                    <stop offset="1" stop-color="#1C2D70" />
+                    <stop stopColor="#3352CC" />
+                    <stop offset="1" stopColor="#1C2D70" />
                 </linearGradient>
             </defs>
         </svg>
