@@ -50,7 +50,7 @@ export const Empty = () => {
                         height="231.765"
                         rx="10.8157"
                         fill="url(#paint3_linear_8182_21406)"
-                        fill-opacity="0.7"
+                        fillOpacity="0.7"
                     />
                     <rect
                         x="48.6704"
@@ -58,7 +58,7 @@ export const Empty = () => {
                         width="288.933"
                         height="143.694"
                         fill="url(#paint4_linear_8182_21406)"
-                        fill-opacity="0.45"
+                        fillOpacity="0.45"
                     />
                     <rect
                         x="66.0528"
@@ -90,7 +90,7 @@ export const Empty = () => {
                         height="231.765"
                         rx="10.8157"
                         fill="url(#paint6_linear_8182_21406)"
-                        fill-opacity="0.32"
+                        fillOpacity="0.32"
                     />
                     <rect
                         x="105.839"
@@ -98,7 +98,7 @@ export const Empty = () => {
                         width="288.933"
                         height="143.694"
                         fill="url(#paint7_linear_8182_21406)"
-                        fill-opacity="0.45"
+                        fillOpacity="0.45"
                     />
                     <rect
                         x="122.835"
@@ -107,7 +107,7 @@ export const Empty = () => {
                         height="33.2196"
                         rx="6.18039"
                         fill="#262626"
-                        fill-opacity="0.25"
+                        fillOpacity="0.25"
                     />
                     <rect
                         x="123.222"
