@@ -17,8 +17,7 @@ type Props = {
 };
 
 const Layout = async ({ children, params }: Props) => {
-  // Query
-  // WIP: Query client fetch data
+
   const query = new QueryClient();
 
   await PrefetchUserProfile(query);
