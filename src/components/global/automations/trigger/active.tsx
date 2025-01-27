@@ -2,7 +2,7 @@ import { InstagramBlue, PlaneBlue } from '@/icons'
 import React from 'react'
 
 type Props = {
-    type: "COMMENT" | "MESSAGE"
+    type: string
     keywords: {
         id: string
         word: string
