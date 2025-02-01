@@ -1,7 +1,17 @@
 "use server";
 
 import { onCurrentUser } from "../user";
-import { addListener, addTrigger, createAutomation, findAutomation, getAutomations, updateAutomation } from "./queries";
+import { findUser } from "../user/queries";
+import {
+  addKeyWord,
+  addListener,
+  addTrigger,
+  createAutomation,
+  deleteKeywordQuery,
+  findAutomation,
+  getAutomations,
+  updateAutomation,
+} from "./queries";
 
 export const createAutomations = async (id?: string) => {
   const user = await onCurrentUser();
@@ -45,26 +55,26 @@ export const getAutomationInfo = async (id: string) => {
 export const updateAutomationName = async (
   automationId: string,
   data: {
-    name?: string
-    active?: boolean
-    automation?: string
+    name?: string;
+    active?: boolean;
+    automation?: string;
   }
 ) => {
   await onCurrentUser();
 
   try {
     const update = await updateAutomation(automationId, data);
-    if (update) return { status: 200, data: 'Automation successfully updated' }
+    if (update) return { status: 200, data: "Automation successfully updated" };
 
-    return { status: 404, data: 'Oops! could not find automation' }
+    return { status: 404, data: "Oops! could not find automation" };
   } catch (error) {
-    return { status: 500, data: 'Oops! something went wrong'  }
+    return { status: 500, data: "Oops! something went wrong" };
   }
-}
+};
 
 export const saveListener = async (
   automationId: string,
-  listener: 'SMARTAI' | 'MESSAGE',
+  listener: "SMARTAI" | "MESSAGE",
   prompt: string,
   reply?: string
 ) => {
@@ -72,21 +82,45 @@ export const saveListener = async (
 
   try {
     const create = await addListener(automationId, listener, prompt, reply);
-    if (create) return { status: 200, data: "Listener created" }
+    if (create) return { status: 200, data: "Listener created" };
 
-    return { status: 404, data: "Can't save listener" }
+    return { status: 404, data: "Can't save listener" };
   } catch (error) {
-    return { status: 500, data: "Oops! Something went wrong" }
+    return { status: 500, data: "Oops! Something went wrong" };
   }
-}
+};
 
 export const saveTrigger = async (automationId: string, trigger: string[]) => {
   await onCurrentUser();
   try {
     const create = await addTrigger(automationId, trigger);
-    if (create) return { status: 200, data: "Trigger saved" }
-    return { status: 404, data: "Can't save trigger" }
+    if (create) return { status: 200, data: "Trigger saved" };
+    return { status: 404, data: "Can't save trigger" };
   } catch (error) {
-    return { status: 500, data: "Oops! Something went wrong" }
+    return { status: 500, data: "Oops! Something went wrong" };
   }
-}
+};
+
+export const saveKeyword = async (automationId: string, keyword: string) => {
+  await onCurrentUser();
+  try {
+    const create = await addKeyWord(automationId, keyword);
+    if (create) return { status: 200, data: "Keyword added successfully" };
+    return { status: 404, data: "Can't add this keyword" };
+  } catch (error) {
+    return { status: 500, data: "Oops! Something went wrong" };
+  }
+};
+
+export const deleteKeyword = async (automationId: string) => {
+  await onCurrentUser();
+  try {
+    const deleted = await deleteKeywordQuery(automationId);
+    if (deleted) return { status: 200, data: "Keyword deleted" };
+    return { status: 404, data: "Keyword not found" };
+  } catch (error) {
+    return { status: 500, data: "Oops! Something went wrong" };
+  }
+};
+
+export const getProfilePosts = async () => {}

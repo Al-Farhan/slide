@@ -1,4 +1,4 @@
-import { getAllAutomations, getAutomationInfo } from "@/actions/automations"
+import { getAllAutomations, getAutomationInfo, getProfilePosts } from "@/actions/automations"
 import { onUserInfo } from "@/actions/user";
 import { useQuery } from "@tanstack/react-query"
 
@@ -21,4 +21,9 @@ export const useQueryUser = () => {
         queryKey: ['user-profile'],
         queryFn: onUserInfo,
     })
+}
+
+export const useQueryAutomationPosts = () => {
+
+    const fetchPosts = async ()=> await getProfilePosts()
 }
