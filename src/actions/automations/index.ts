@@ -1,10 +1,12 @@
 "use server";
 
+import { AutomationPosts } from "@/hooks/use-automations";
 import { onCurrentUser } from "../user";
 import { findUser } from "../user/queries";
 import {
   addKeyWord,
   addListener,
+  addPost,
   addTrigger,
   createAutomation,
   deleteKeywordQuery,
@@ -123,4 +125,32 @@ export const deleteKeyword = async (automationId: string) => {
   }
 };
 
-export const getProfilePosts = async () => {}
+export const getProfilePosts = async () => {
+  const user = await onCurrentUser();
+  try {
+    const profile = await findUser(user.id);
+    const posts = await fetch(
+      `${process.env.INSTAGRAM_BASE_URL}/me/media?fields=id,caption,media_url,media_type,timestamp&limit=10&access_token=${profile?.integrations[0].token}`
+    )
+    const parsed = await posts.json();
+    if (parsed) return { status: 200, data: parsed }
+    console.log("🔴 Error in getting posts");
+    return { status: 404 }
+  } catch (error) {
+    console.log("🔴 Server side error in getting posts ", error);
+    return { status: 500 }
+  }
+}
+
+export const savePosts = async (automationId: string, posts: AutomationPosts[]) => {
+  await onCurrentUser();
+  try {
+    const create = await addPost(automationId, posts);
+
+    if (create) return { status: 200, data: "Posts attached" }
+
+    return { status: 404, data: "Automation not found" }
+  } catch (error) {
+    return { status: 505, data: "Oops! Something went wrong" }
+  }
+}

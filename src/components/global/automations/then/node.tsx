@@ -47,7 +47,7 @@ const ThenNode = ({ id }: Props) => {
             {data.data.listener.prompt}
         </p>
       </div>
-      {data.data.posts.length > 0 ? <></> : commentTrigger ? <PostButton /> : <></>}
+      {data.data.posts.length > 0 ? <></> : commentTrigger ? <PostButton id={id} /> : <></>}
     </div>
   );
 };
